@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ethical Hacking Scanner</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-dark px-3">
+    <span class="navbar-brand">🕵️ Ethical Hacking Recon Dashboard</span>
+</nav>
+
+<div class="container mt-4">
+
+    <div class="alert alert-warning">
+        ⚠️ Educational & authorized testing only.
+    </div>
+
+    <form method="POST" class="card p-3 shadow-sm mb-4">
+        <div class="row">
+            <div class="col-md-9">
+                <input type="text" name="target" class="form-control"
+                       placeholder="Target IP (e.g. 127.0.0.1)" required>
+            </div>
+            <div class="col-md-3 d-grid">
+                <button class="btn btn-danger">Start Recon</button>
+            </div>
+        </div>
+    </form>
+
+    {% if target %}
+    <!-- Risk Summary -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm border-danger">
+                <h6>High Risk</h6>
+                <h3 class="text-danger">{{ risk_summary.HIGH }}</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm border-warning">
+                <h6>Medium Risk</h6>
+                <h3 class="text-warning">{{ risk_summary.MEDIUM }}</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm border-success">
+                <h6>Low Risk</h6>
+                <h3 class="text-success">{{ risk_summary.LOW }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5>Scan Results – {{ target }}</h5>
+
+            {% if results %}
+            <table class="table table-hover mt-3">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Port</th>
+                        <th>Service</th>
+                        <th>Risk</th>
+                        <th>Reason</th>
+                        <th>Banner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in results %}
+                    <tr>
+                        <td>{{ r.port }}</td>
+                        <td>{{ r.service }}</td>
+                        <td>
+                            <span class="badge risk-{{ r.risk|lower }}">
+                                {{ r.risk }}
+                            </span>
+                        </td>
+                        <td>{{ r.reason }}</td>
+                        <td class="small">{{ r.banner }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                <div class="alert alert-success mt-3">
+                    ✅ No vulnerabilities detected.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+</body>
+</html>

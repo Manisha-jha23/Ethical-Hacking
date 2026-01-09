@@ -1,0 +1,34 @@
+body {
+    background-color: #0f172a;
+    color: #e5e7eb;
+}
+
+.navbar {
+    background-color: #020617 !important;
+}
+
+.card {
+    background-color: #020617;
+    color: #e5e7eb;
+}
+
+.table {
+    color: #e5e7eb;
+}
+
+.table-dark {
+    background-color: #020617;
+}
+
+.risk-high {
+    background-color: #dc3545;
+}
+
+.risk-medium {
+    background-color: #ffc107;
+    color: black;
+}
+
+.risk-low {
+    background-color: #198754;
+}
